@@ -9,6 +9,8 @@ def emot_detector():
     """Analyze the submitted text and return its emotion scores."""
     text_to_analyze = request.args.get('textToAnalyze')
     response = emotion_detector(text_to_analyze)
+    if response['dominant_emotion'] is None:
+        return "Invalid text! Please try again!"
     return (
         "For the given statement, the system response is "
         f"'anger': {response['anger']}, "
@@ -26,3 +28,4 @@ def render_index_page():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+    
